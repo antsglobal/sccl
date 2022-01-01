@@ -20,8 +20,8 @@ public class DeviceRunBook {
 	@Column(name="Id")
 	private long deviceRunBookId;
 	
-	@Column(name="Device_Sensor_Id")
-	private String device;
+	@Column(name="Device_Id")
+	private String deviceId;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name="start")
@@ -45,12 +45,13 @@ public class DeviceRunBook {
 		this.deviceRunBookId = deviceRunBookId;
 	}
 
-	public String getDevice() {
-		return device;
+
+	public String getDeviceId() {
+		return deviceId;
 	}
 
-	public void setDevice(String device) {
-		this.device = device;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
 	public Timestamp getStartTime() {
@@ -83,6 +84,12 @@ public class DeviceRunBook {
 
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
+	}
+
+	@Override
+	public String toString() {
+		return "DeviceRunBook [deviceRunBookId=" + deviceRunBookId + ", device=" + deviceId + ", startTime=" + startTime
+				+ ", endTime=" + endTime + ", longitude=" + longitude + ", latitude=" + latitude + "]";
 	}
 	
 	

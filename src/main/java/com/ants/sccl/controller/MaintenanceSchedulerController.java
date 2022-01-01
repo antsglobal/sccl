@@ -18,16 +18,19 @@ import com.ants.sccl.model.DevicePart;
 import com.ants.sccl.model.DeviceRunBook;
 import com.ants.sccl.model.DeviceRunBookInputModel;
 import com.ants.sccl.model.PilferageDetectionModel;
+import com.ants.sccl.model.ReplacementModel;
+import com.ants.sccl.projections.ReplacementViewSPModel;
 import com.ants.sccl.repository.AssetRegisterRepository;
 import com.ants.sccl.repository.PilferageDetectionRepository;
 import com.ants.sccl.response.MessageResponse;
+import com.ants.sccl.service.DeviceMappingService;
 import com.ants.sccl.service.DevicePartService;
 import com.ants.sccl.service.DeviceRunBookService;
 
 
 @RestController
 @RequestMapping("/")
-public class MiningSolutionController {
+public class MaintenanceSchedulerController {
 	String trueFlag="true";
 	String falseFlag="false";
 	String failed="failed";
@@ -41,9 +44,12 @@ public class MiningSolutionController {
 
 	@Autowired
 	PilferageDetectionRepository pilferageDetectionRepository;
-	
+
 	@Autowired
 	AssetRegisterRepository assetRegisterRepository;
+
+	@Autowired
+	DeviceMappingService deviceMappingService;
 
 	/* Doc
 	 * device-runbook API used for save/update Device RunBook data in Device_Runbook Table ---- */
@@ -54,7 +60,7 @@ public class MiningSolutionController {
 
 		if(deviceRunBookInputModel.getFlag()==1) {
 			try {
-				drb.setDevice(deviceRunBookInputModel.getDeviceSensorId());
+				drb.setDeviceId(deviceRunBookInputModel.getDeviceId());
 				drb.setStartTime(deviceRunBookInputModel.getTimeStamp());
 				drb.setLatitude(deviceRunBookInputModel.getLatitude());
 				drb.setLongitude(deviceRunBookInputModel.getLongitude());
@@ -63,12 +69,10 @@ public class MiningSolutionController {
 			}catch (Exception e) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse(falseFlag,failed,e));
 			}
-
-
 		}
 		else if(deviceRunBookInputModel.getFlag()==0) {
 			try {
-				DeviceRunBook drbOne=deviceRunBookService.findDevice(deviceRunBookInputModel.getDeviceSensorId());
+				DeviceRunBook drbOne=deviceRunBookService.findDevice(deviceRunBookInputModel.getDeviceId());
 				drbOne.setEndTime(deviceRunBookInputModel.getTimeStamp());
 				drbOne.setLatitude(deviceRunBookInputModel.getLatitude());
 				drbOne.setLongitude(deviceRunBookInputModel.getLongitude());
@@ -78,7 +82,6 @@ public class MiningSolutionController {
 			}catch (Exception e) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse(trueFlag,failed,e));
 			}
-
 		}
 		else
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse(falseFlag,failed,""));		
@@ -86,9 +89,9 @@ public class MiningSolutionController {
 
 
 	/*Doc:
-	 *  get-device-runbook API used for get all device runbook data **/
+	 *  device-runbook-info API used for get all device runbook data **/
 
-	@GetMapping("/get-device-runbook")
+	@GetMapping("/device-runbook-info")
 	public ResponseEntity<MessageResponse> deviceRunBook() {
 
 		List<DeviceRunBook> drb=deviceRunBookService.findAllDeviceRunBook();
@@ -131,7 +134,6 @@ public class MiningSolutionController {
 					devicePartone.setReplacementStatus("0");
 
 					deviceParttwo =devicePartService.deivePartCreate(devicePartone);
-
 				}
 				return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(trueFlag,success,deviceParttwo)) ;
 			}else
@@ -140,30 +142,48 @@ public class MiningSolutionController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(falseFlag,failed,e)) ;
 		}
-
 	}
-	
 	/**
 	 * This API use for getting all machines based on based on type from Device Mapping Table
 	 * */
 	@PostMapping("/machines")
 	public ResponseEntity<MessageResponse> getMachines(@RequestParam String machineType){
-		
-		
-		
 		return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(trueFlag,success,"")) ;
 	}
-	
-	
-	@GetMapping("/test-api")
-	public ResponseEntity<MessageResponse> getTestItems(Integer pageNo, Integer pageSize, String sortBy){
-		
-		List<DeviceRunBook> drbl=deviceRunBookService.findAllDeviceRunBook(pageNo,pageSize,sortBy);
-		
-		
-		return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(trueFlag,success,drbl)) ;
+
+	//	/** this API for testing pagenation */
+	//	@PostMapping("/page-nation-test-api")
+	//	public ResponseEntity<MessageResponse> getTestItems(Integer pageNo, Integer pageSize, String sortBy){
+	//		List<DeviceRunBook> drbl=deviceRunBookService.findAllDeviceRunBook(pageNo,pageSize,sortBy);
+	//		return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(trueFlag,success,drbl)) ;
+	//	}
+
+
+
+	/** This Replacement-view API is takes device category and returns replacementView elements */
+	@PostMapping("/replacement-view")
+	public ResponseEntity<MessageResponse> replacementView(@RequestParam String deviceCategory){
+		List<ReplacementViewSPModel> dmsre=devicePartService.getReplacementView(deviceCategory);
+		//List<?> dmsre=deviceMappingService.getReplacementView(deviceCategory);
+		//List<DeviceRunBook> drbl=deviceRunBookService.findAllDeviceRunBook(pageNo,pageSize,sortBy);
+		return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(trueFlag,success,dmsre)) ;
 	}
 
+	/** This API used for replace the parts */
+
+	@PostMapping("/replacement")
+	public ResponseEntity<MessageResponse> replacement(@RequestBody ReplacementModel replacementModel){
+		int flag=0;
+		try {
+			flag=devicePartService.saveReplacement(replacementModel);
+		}catch (Exception e) {
+
+		}
+		if(flag==1)
+			return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(trueFlag,success,"")) ;
+		else 
+			return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(falseFlag,failed,"")) ;
+	}
 }
 
 

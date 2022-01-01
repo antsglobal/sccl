@@ -8,19 +8,21 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name="`Dumper_Device_Mapping`")
-@Component
+@Table(name="`IOT_Device_Mapping`")
 public class DeviceMapping {
-	
+
 	@Id
 	@Column(name="device_Id")
 	private String deviceId;
-	
+
 	@Column(name="category")
 	private String deviceCategory;
-	
+
 	@Column(name="mapping_Id")
 	private String deviceMappingID;
+
+	@Column(name="Status")
+	private String deviceStatus;
 
 	public String getDeviceId() {
 		return deviceId;
@@ -45,7 +47,19 @@ public class DeviceMapping {
 	public void setDeviceMappingID(String deviceMappingID) {
 		this.deviceMappingID = deviceMappingID;
 	}
-	
-	
-	
+
+	public String getDeviceStatus() {
+		return deviceStatus;
+	}
+
+	public void setDeviceStatus(String deviceStatus) {
+		this.deviceStatus = deviceStatus;
+	}
+
+	@Override
+	public String toString() {
+		return "DeviceMapping [deviceId=" + deviceId + ", deviceCategory=" + deviceCategory + ", deviceMappingID="
+				+ deviceMappingID + ", deviceStatus=" + deviceStatus + "]";
+	}
+
 }

@@ -12,7 +12,7 @@ import com.ants.sccl.model.DeviceRunBook;
 @Repository
 public interface DeviceRunBookRepository extends JpaRepository<DeviceRunBook, Integer> {
 
-	@Query(value="select * from Device_Runbook where End IS NULL and Device_Sensor_Id=?1", nativeQuery = true)
+	@Query(value="select * from Device_Runbook where End IS NULL and Device_Id=?1", nativeQuery = true)
 	DeviceRunBook findDevice(String deviceId);
 	
 	@Procedure(procedureName = "updateDeviceParts")

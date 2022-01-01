@@ -12,8 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ants.sccl.model.Asset;
@@ -60,7 +62,6 @@ public class DeviceController {
 	@Autowired
 	PasswordEncoder passwordencoder;
 
-
 	@Autowired
 	LiveLocationRepository livelocationrepositery;
 
@@ -73,14 +74,11 @@ public class DeviceController {
 	@Autowired
 	AssetRegisterRepository assetRegisterRepository;
 
-
 	@Autowired
 	UserDetailsRepository userDetailsRepository;
 
 	@Autowired
 	DeviceMappingRepository deviceMappingRepository;
-
-
 
 	//	@Autowired
 	//	LocationForAssetRepository locationForAssetRepository;
@@ -436,17 +434,18 @@ public class DeviceController {
 
 	}
 
-	/** D7 -- API for getting dumper_Id's */
-	@GetMapping("/alldumperids")
-	public  ResponseEntity<MessageResponse>  getDumpers() {
+	/** D7 -- API for getting dumper_Id's based on deviceCatagory */
+	/** */
+	@PostMapping("/device-view")
+	public  ResponseEntity<MessageResponse>  getDevices(@RequestParam String deviceCatagory) {
 		try {
-			List<DeviceMapping> deviceCount = deviceMappingRepository.getAllDumpers();
+			List<DeviceMapping> deviceCount = deviceMappingRepository.getAllDumpers(deviceCatagory);
 			return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("true"," Dumpers fetch successfully",deviceCount)) ;
 		}catch(Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("false","Invalid",e)) ;
 		}
-
 	}
+
 
 	/** D8 -- API for Dumper Deails Count*/
 	@PostMapping("/dumperdetailscount")
@@ -475,4 +474,33 @@ public class DeviceController {
 
 	}
 
+	/** D10 -- API used for register new device (deumper,shovel,ext...) in Dumpr_Device_Mapping Table*/
+	@PostMapping("/device")
+	public ResponseEntity<MessageResponse> addDevice(@RequestBody DeviceMapping deviceMapping) {
+		try {
+			DeviceMapping deviceMappingResult=deviceMappingRepository.save(deviceMapping);
+			if(deviceMappingResult==null)
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("false","No Records Found","")) ;
+			else
+				return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("true","Dumper details count fetch successfully ",deviceMappingResult)) ;
+		}catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("false","Invalid ",e)) ;
+		}
+	}
+
+//	/** D10 -- API used for register new device (deumper,shovel,ext...) in Dumper_Device_Mapping Table*/
+//	@PutMapping("/device")
+//	public ResponseEntity<MessageResponse> updateDevice(@RequestBody DeviceMapping deviceMapping) {
+//		try {
+//			DeviceMapping deviceMappingResult=deviceMappingRepository.save(deviceMapping);
+//			if(deviceMappingResult==null)
+//				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("false","No Records Found","")) ;
+//			else
+//				return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("true","Dumper details count fetch successfully ",deviceMappingResult)) ;
+//		}catch(Exception e) {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("false","Invalid ",e)) ;
+//		}
+//	}
+
+	
 }

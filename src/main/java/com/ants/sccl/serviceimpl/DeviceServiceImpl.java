@@ -136,15 +136,16 @@ public class DeviceServiceImpl implements DeviceService{
 	}
 
 	@Override
-	public ArrayList<Dashboard> getThreeData(Date fromDate, Date toDate) {
+	public List<Dashboard> getThreeData(Date fromDate, Date toDate) {
 		
-		ArrayList<Dashboard> op=(ArrayList<Dashboard>) dumpertransactionRepositery.getDataWithFromDateToDate(fromDate, toDate);
+	List<Dashboard> op= (List<Dashboard>) dumpertransactionRepositery.getDataWithFromDateToDate(fromDate, toDate);
 		return op;
 	}
 
+	@Override
 	public List<DumperTransaction> getRecentTripsData() {
 		
-		List<DumperTransaction> dumperTransaction=(List<DumperTransaction>) dumpertransactionRepositery.getRecentTrips();
+		List<DumperTransaction> dumperTransaction= (List<DumperTransaction>) dumpertransactionRepositery.getRecentTrips();
 		return dumperTransaction;
 	}
 	

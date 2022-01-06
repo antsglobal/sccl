@@ -15,6 +15,6 @@ public interface DeviceService {
 	
 
 	public IoTResponse saveDeviceData(Device device);
-	public ArrayList<Dashboard> getThreeData(Date fromDate, Date toDate);
+	public List<Dashboard> getThreeData(Date fromDate, Date toDate);
 	public List<DumperTransaction> getRecentTripsData();
 }

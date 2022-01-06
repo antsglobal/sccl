@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,42 +78,6 @@ public class DeviceController {
 
 	@Autowired
 	DeviceMappingRepository deviceMappingRepository;
-
-	//	@Autowired
-	//	LocationForAssetRepository locationForAssetRepository;
-
-	//	@Autowired
-	//	AssetRegisterRepository arRepository;
-
-
-	//	@PostMapping("/dumper")
-	//	public void dumper(@RequestBody DumperData dumperdata) {
-	//		System.out.println("dumper Api calling...");
-	//		Boolean b;
-	//		if("Loader".equalsIgnoreCase(dumperdata.getBluetoothType())) {
-	//			dumperServiceImpl.dumperIdWithLoader(dumperdata.getDumperId(), dumperdata.getBluetoothValue(),dumperdata.getDateTime());
-	//		}
-	//			//b=dumperServiceImpl.checkDumperAndBluetoothDevideExistornot(dumperdata.getDumperId(), dumperdata.getBluetoothValue());
-	//		if("Unloader".equalsIgnoreCase(dumperdata.getBluetoothType())) {
-	//			dumperServiceImpl.dumperIdWithunLoader(dumperdata.getDumperId(), dumperdata.getBluetoothValue(),dumperdata.getDateTime());
-	//		}
-	//		if("No".equalsIgnoreCase(dumperdata.getBluetoothType())) {
-	//			dumperServiceImpl.dumperIdWithNodevice(dumperdata.getDumperId());
-	//		}
-	//	}
-	//	
-	//getting live location of dumper
-	//	@PostMapping("/dumper/live")
-	//	public ResponseEntity<?> dumperTrack(@RequestBody String dumperId){
-	//		Optional<?> dd= dumperRepo.findById(dumperId);
-	//		if(dd.isPresent()) {
-	//			return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("200","success",dd));
-	//		} else {
-	//				return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("201","dumper not found",""));
-	//		       }
-	//	}
-	//	
-	//	
 
 	/**	D1--Master API for store dumper Raw Data  */
 	@PostMapping("/adddevicedetails")
@@ -238,14 +201,6 @@ public class DeviceController {
 		return  ResponseEntity.status(HttpStatus.OK).body(assetList);
 	}
 
-	/** A4 getting all Avalible assets in asset Table  */
-	//	@GetMapping("/gettest")
-	//	public  ResponseEntity<?>  getAsset() {
-	//			List<Asset> assetList=assetRepository.getAsset();
-	//			//return  ResponseEntity.status(HttpStatus.OK).body(new IoTResponse(it.getStatus(),it.getIgnition_status(),it.getSw_ver()));
-	//			return  ResponseEntity.status(HttpStatus.OK).body(assetList);
-	//	}
-
 	/** A5 -- getting Asset count based on locations(rooms)  */
 	@GetMapping("/getdevicecount")
 	public  ResponseEntity<?>  getDeviceCount() {
@@ -287,23 +242,6 @@ public class DeviceController {
 		return   ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("true","asset details added successfully",ar));
 
 	}
-
-	//	/** A8 -- update Asset status */
-	//	@PostMapping("/assetupdate")
-	//	public  ResponseEntity<?>  updateAsset(@RequestBody AssetRegister assetRegister) {
-	//		 AssetRegister ar = null;
-	//		try {
-	//		
-	//		    ar =assetRegisterRepository.save(assetRegister);
-	//		   //return   ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("true","asset details added successfully",ar));
-	//		
-	//		}catch(Exception e) {
-	//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("false","Invalid",e));
-	//		}
-	//			//ArrayList<AssetCount> assetsList=(ArrayList<AssetCount>) assetRegisterRepository.getAssetCountBasedonLocationId();
-	//		return   ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("true","asset details added successfully",ar));
-	//			
-	//	}
 
 	/** A8 -- view Asset based */
 	@GetMapping("/assetview")
@@ -383,12 +321,10 @@ public class DeviceController {
 					return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("false","Invalid User EmailId",userObject));
 				}
 			}else {
-				userDetails.setUserPassword(hide);
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("false","Invalid User Details",userDetails));
 			}
 		}catch (Exception e) {
-			userDetails.setUserPassword(hide);
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("false","Invalid User Details",userDetails));
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("false","Invalid User",e));
 		}
 	}
 
@@ -401,7 +337,7 @@ public class DeviceController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("false","Invalid Date",dumperDetails)) ;
 		}else {
 			try {
-				ArrayList<Dashboard> db=deviceServiceImpl.getThreeData(dumperDetails.getFromDate(), dumperDetails.getToDate());
+				List<Dashboard> db=deviceServiceImpl.getThreeData(dumperDetails.getFromDate(), dumperDetails.getToDate());
 				return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("true","fetching count of doumper Count ,shovel count total trips successfully",db)) ;
 			}catch(Exception e) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(dumperDetails) ;
@@ -488,19 +424,4 @@ public class DeviceController {
 		}
 	}
 
-//	/** D10 -- API used for register new device (deumper,shovel,ext...) in Dumper_Device_Mapping Table*/
-//	@PutMapping("/device")
-//	public ResponseEntity<MessageResponse> updateDevice(@RequestBody DeviceMapping deviceMapping) {
-//		try {
-//			DeviceMapping deviceMappingResult=deviceMappingRepository.save(deviceMapping);
-//			if(deviceMappingResult==null)
-//				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("false","No Records Found","")) ;
-//			else
-//				return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("true","Dumper details count fetch successfully ",deviceMappingResult)) ;
-//		}catch(Exception e) {
-//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("false","Invalid ",e)) ;
-//		}
-//	}
-
-	
 }

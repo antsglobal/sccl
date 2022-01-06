@@ -2,8 +2,6 @@ package com.ants.sccl.model;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class ReplacementModel {
 
 	private int P_part_id;
@@ -12,7 +10,6 @@ public class ReplacementModel {
 	private String P_part_name;
 	private int P_replace_quantity;
 	
-	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date P_replacement_date;
 	public int getP_part_id() {
 		return P_part_id;

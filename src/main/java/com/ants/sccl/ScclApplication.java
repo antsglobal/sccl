@@ -6,8 +6,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import com.ants.sccl.mqtttest.MQTTTestController;
-
 @SpringBootApplication
 @EnableJpaAuditing
 public class ScclApplication extends SpringBootServletInitializer  {

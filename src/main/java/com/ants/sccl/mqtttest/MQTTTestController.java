@@ -1,5 +1,7 @@
 package com.ants.sccl.mqtttest;
 
+import javax.persistence.ExcludeDefaultListeners;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ants.sccl.response.ResponseObject;
 
-
-@RestController
-@RequestMapping("/mqtt/api")
+//@RestController
+//@RequestMapping("/mqtt/api")
 public class MQTTTestController {
 	
 	@Autowired

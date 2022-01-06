@@ -1,20 +1,22 @@
 package com.ants.sccl.projections;
 
+import java.util.Date;
+
 public interface ReplacementViewSPModel {
 	
 	long getPId();
 	
-	String getStock_id();
-	String getDevice_name();
-	String getPart_name();
+	String getStockId();
+	String getDeviceName();
+	String getPartName();
 	String getCategory();
-	int getRun_Hours();
-	int getQuantity_to_be_replaced();
-	int getMax_hours();
-	Double getHP_percent();
-	String getHours_status();
-	int getStock_available();
+	int getRunHours();
+	int getQuantityToBeReplaced();
+	int getMaxHours();
+	Double getHpPercent();
+	String getHoursStatus();
+	int getStockAvailable();
 	String getBrand();
 	String getUnits();
-	
+	Date getLastReplacementDate();
 }

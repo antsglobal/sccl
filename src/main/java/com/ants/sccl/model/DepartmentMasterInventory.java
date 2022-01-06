@@ -14,19 +14,22 @@ public class DepartmentMasterInventory {
 	@Id
 	@Column(name="Id")
 	private int id;
-	
+
 	@Column(name="Department_Name")
 	private String departmentName;
-	
+
+	@Column(name="Part_Name")
+	private String partName;
+
 	@Column(name="Brand")
 	private String brand;
-	
+
 	@Column(name="Stock_Available")
 	private int stockAvailable;
-	
+
 	@Column(name="Warehouse_Stock")
 	private int warehouseStock;
-	
+
 	@Column(name="Last_Refill_Date")
 	private Date lastRefillDate;
 
@@ -44,6 +47,14 @@ public class DepartmentMasterInventory {
 
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
+	}
+
+	public String getPartName() {
+		return partName;
+	}
+
+	public void setPartName(String partName) {
+		this.partName = partName;
 	}
 
 	public String getBrand() {
@@ -77,8 +88,11 @@ public class DepartmentMasterInventory {
 	public void setLastRefillDate(Date lastRefillDate) {
 		this.lastRefillDate = lastRefillDate;
 	}
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "DepartmentMasterInventory [id=" + id + ", departmentName=" + departmentName + ", partName=" + partName
+				+ ", brand=" + brand + ", stockAvailable=" + stockAvailable + ", warehouseStock=" + warehouseStock
+				+ ", lastRefillDate=" + lastRefillDate + "]";
+	}
 }

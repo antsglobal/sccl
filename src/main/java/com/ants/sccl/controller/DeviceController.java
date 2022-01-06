@@ -440,7 +440,7 @@ public class DeviceController {
 	public  ResponseEntity<MessageResponse>  getDevices(@RequestParam String deviceCatagory) {
 		try {
 			List<DeviceMapping> deviceCount = deviceMappingRepository.getAllDumpers(deviceCatagory);
-			return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("true"," Dumpers fetch successfully",deviceCount)) ;
+			return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("true",deviceCatagory+" fetch successfully",deviceCount)) ;
 		}catch(Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("false","Invalid",e)) ;
 		}

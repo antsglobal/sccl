@@ -6,7 +6,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class DeviceRunBookInputModel {
 	
-	private String device;
+	
+	private String deviceId;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Timestamp timeStamp;
@@ -18,12 +19,13 @@ public class DeviceRunBookInputModel {
 	
 	private int flag;
 
-	public String getDevice() {
-		return device;
+	
+	public String getDeviceId() {
+		return deviceId;
 	}
 
-	public void setDevice(String device) {
-		this.device = device;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
 	public Timestamp getTimeStamp() {
@@ -57,8 +59,6 @@ public class DeviceRunBookInputModel {
 	public void setFlag(int flag) {
 		this.flag = flag;
 	}
-	
-	
 	
 
 }

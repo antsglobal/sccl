@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class DeviceRunBookInputModel {
 	
-	
 	private String deviceId;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -60,5 +59,4 @@ public class DeviceRunBookInputModel {
 		this.flag = flag;
 	}
 	
-
 }

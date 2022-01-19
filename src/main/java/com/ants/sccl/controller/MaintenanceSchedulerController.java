@@ -24,6 +24,7 @@ import com.ants.sccl.model.PilferageDetectionModel;
 import com.ants.sccl.model.ReplacementModel;
 import com.ants.sccl.model.WarehouseMasterInventory;
 import com.ants.sccl.projections.ReplacementViewSPModel;
+import com.ants.sccl.projections.WarehouseMasterInventoryProjection;
 import com.ants.sccl.repository.DepartmentMasterInventoryRepository;
 import com.ants.sccl.repository.PartTypeRepository;
 import com.ants.sccl.repository.PilferageDetectionRepository;
@@ -248,13 +249,12 @@ public class MaintenanceSchedulerController {
 	/* Warehouse Stock View API */
 	@GetMapping("/warehouse-inventory")
 	public ResponseEntity<MessageResponse> whereHouseStock(){
-		List<WarehouseMasterInventory> whiList = warehouseMasterInventoryService.wareHouseInventoryview();
+		List<WarehouseMasterInventoryProjection> whiList = warehouseMasterInventoryService.wareHouseInventoryview();
 		return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(trueFlag,success,whiList)) ;
 
 	}
 
 	/* Warehouse Stock listing API */
-
 	@PostMapping("/add-warehouse-inventory")
 	public ResponseEntity<MessageResponse> addWhereHouseStock(@RequestBody WarehouseMasterInventory warehouseMasterInventory){
 		warehouseMasterInventoryService.addwareHouseInventoryService(warehouseMasterInventory);

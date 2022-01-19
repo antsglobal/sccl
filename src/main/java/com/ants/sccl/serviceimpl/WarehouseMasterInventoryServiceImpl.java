@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ants.sccl.model.WarehouseMasterInventory;
+import com.ants.sccl.projections.WarehouseMasterInventoryProjection;
 import com.ants.sccl.repository.WarehouseMasterInventoryRepository;
 import com.ants.sccl.service.WarehouseMasterInventoryService;
 
@@ -16,9 +17,9 @@ public class WarehouseMasterInventoryServiceImpl implements WarehouseMasterInven
 	WarehouseMasterInventoryRepository warehouseMasterInventoryRepository;
 	
 	@Override
-	public List<WarehouseMasterInventory> wareHouseInventoryview() {
+	public List<WarehouseMasterInventoryProjection> wareHouseInventoryview() {
 		
-		return warehouseMasterInventoryRepository.findAll();
+		return warehouseMasterInventoryRepository.findAllInventory();
 	
 		
 	}

@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name="Device_Runbook")
 public class DeviceRunBook {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="Id")
@@ -91,5 +91,5 @@ public class DeviceRunBook {
 		return "DeviceRunBook [deviceRunBookId=" + deviceRunBookId + ", deviceId=" + deviceId + ", startTime="
 				+ startTime + ", endTime=" + endTime + ", longitude=" + longitude + ", latitude=" + latitude + "]";
 	}
-	
-	}
+
+}

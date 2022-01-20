@@ -14,26 +14,26 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name="Device_Runbook")
 public class DeviceRunBook {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="Id")
 	private long deviceRunBookId;
-	
-	@Column(name="Device_Sensor_Id")
-	private String device;
-	
+
+	@Column(name="Device_Id")
+	private String deviceId;
+
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name="start")
 	private Timestamp startTime;
-	
+
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name="end")
 	private Timestamp endTime;
-	
+
 	@Column(name="longitude")
 	private String longitude;
-	
+
 	@Column(name="latitude")
 	private String latitude;
 
@@ -45,12 +45,13 @@ public class DeviceRunBook {
 		this.deviceRunBookId = deviceRunBookId;
 	}
 
-	public String getDevice() {
-		return device;
+
+	public String getDeviceId() {
+		return deviceId;
 	}
 
-	public void setDevice(String device) {
-		this.device = device;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
 	public Timestamp getStartTime() {
@@ -84,7 +85,11 @@ public class DeviceRunBook {
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "DeviceRunBook [deviceRunBookId=" + deviceRunBookId + ", deviceId=" + deviceId + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", longitude=" + longitude + ", latitude=" + latitude + "]";
 	}
+
+}

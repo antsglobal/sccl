@@ -428,7 +428,7 @@ public class DeviceController {
 		}
 	}
 	
-	/* three -3 ---- pending---- */
+	/*  */
 	@GetMapping("/iot-device-info")
 	public ResponseEntity<MessageResponse> getIotDevice(){
 
@@ -440,10 +440,10 @@ public class DeviceController {
 	/* three -3 ---- pending---- */
 	@GetMapping("/loader-driller-info")
 	public ResponseEntity<MessageResponse> getLoaderDriller(){
-
-		List<DeviceMapping> lddm=deviceMappingService.loaderDriller();
-		
-		return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("true","success",lddm)) ;
+		System.out.println("----one in control");
+		List<DeviceMapping> lddm=deviceMappingRepository.findLoaderDriller();
+		System.out.println("----two in control");
+				return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("true","success",lddm)) ;
 	}
 
 }

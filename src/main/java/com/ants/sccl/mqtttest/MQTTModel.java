@@ -26,9 +26,6 @@ public class MQTTModel {
 	
 	@Column(name="Messages")
 	private String message;
-	
-//	@Column(name="Date")
-//	private Date date;
 
 	public int getId() {
 		return id;
@@ -61,21 +58,4 @@ public class MQTTModel {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
-//	public Date getDate() {
-//		return date;
-//	}
-//
-//	public void setDate(Date date) {
-//		this.date = date;
-//	}
-
-//	@Override
-//	public String toString() {
-//		return "MQTTModel [id=" + id + ", deviceId=" + deviceId + ", deviceTopic=" + deviceTopic + ", message="
-//				+ message + ";
-//	}
-
-	
-
 }

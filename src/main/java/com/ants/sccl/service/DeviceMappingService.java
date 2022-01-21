@@ -13,4 +13,8 @@ public interface DeviceMappingService {
 	
 	public DeviceMapping addDevice(DeviceMapping deviceMapping);
 
+	public List<DeviceMapping> loaderDriller();
+
+	public List<DeviceMapping> findAll();
+
 }

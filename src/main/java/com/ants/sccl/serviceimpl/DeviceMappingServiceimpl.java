@@ -21,4 +21,15 @@ public class DeviceMappingServiceimpl implements DeviceMappingService {
 
 		return null;
 	}
+
+	@Override
+	public List<DeviceMapping> loaderDriller() {
+			return deviceMappingRepository.findLoaderDriller();
+	}
+
+	@Override
+	public List<DeviceMapping> findAll() {
+		
+		return deviceMappingRepository.findAll();
+	}
 }

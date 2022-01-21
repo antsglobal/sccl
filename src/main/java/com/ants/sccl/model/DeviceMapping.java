@@ -7,18 +7,21 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="`IOT_Device_Mapping`")
+@Table(name="IOT_Device_Mapping")
 public class DeviceMapping {
 
 	@Id
-	@Column(name="device_Id")
+	@Column(name="Device_Id")
 	private String deviceId;
 
-	@Column(name="category")
+	@Column(name="Category")
 	private String deviceCategory;
 
-	@Column(name="mapping_Id")
+	@Column(name="Mapping_Id")
 	private String deviceMappingID;
+	
+	@Column(name="Model_Name")
+	private String modelName;
 
 	@Column(name="Status")
 	private String deviceStatus;
@@ -37,6 +40,15 @@ public class DeviceMapping {
 
 	public void setDeviceCategory(String deviceCategory) {
 		this.deviceCategory = deviceCategory;
+	}
+	
+	public String getModelName() {
+		return modelName;
+	}
+
+	
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
 	}
 
 	public String getDeviceMappingID() {
@@ -58,7 +70,7 @@ public class DeviceMapping {
 	@Override
 	public String toString() {
 		return "DeviceMapping [deviceId=" + deviceId + ", deviceCategory=" + deviceCategory + ", deviceMappingID="
-				+ deviceMappingID + ", deviceStatus=" + deviceStatus + "]";
+				+ deviceMappingID + ", modelName=" + modelName + ", deviceStatus=" + deviceStatus + "]";
 	}
 
 }

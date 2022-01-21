@@ -17,7 +17,7 @@ public class MQTTService {
 	
 	final String host = "48eb834e5bfc48fdb7a8c21995b506eb.s1.eu.hivemq.cloud";
     final String username = "ants_mqtt";
-    final String password = "Ants@123";
+    final String Mpassword = "Ants@123";
     	  Boolean flag=false;
     	  int i=0;
 	
@@ -35,26 +35,32 @@ public class MQTTService {
     client.connectWith()
             .simpleAuth()
             .username(username)
-            .password(UTF_8.encode(password))
+            .password(UTF_8.encode(Mpassword))
             .applySimpleAuth()
             .send();
 
-    System.out.println("Connected successfully");
+ 
 
-    //subscribe to the topic "my/test/topic"
+	/* subscribe to the topic "my/test/topic" */
     client.subscribeWith()
-           // .topicFilter("welcome/temp")
+			/* .topicFilter("welcome/temp") */
             .topicFilter(mc.getDeviceTopic())
             .send();
-    System.out.println("subscribe successfully");
+   
     
   
-    //set a callback that is called when a message is received (using the async API style)
+	/*
+	 * set a callback that is called when a message is received (using the async API
+	 * style)
+	 */
     client.toAsync().publishes(ALL, publish -> {
     
     	//	i++;
     	
-        System.out.println("Received message: " + publish.getTopic() + " -> " + UTF_8.decode(publish.getPayload().get()));
+		/*
+		 * System.out.println("Received message: " + publish.getTopic() + " -> " +
+		 * UTF_8.decode(publish.getPayload().get()));
+		 */
 
         //disconnect the client after a message was received
         //client.disconnect();
@@ -75,6 +81,6 @@ public class MQTTService {
     .topic(mc.getDeviceTopic())
     .payload(UTF_8.encode(mc.getMessage()))
     .send();
-    System.out.println("publish successfully");
+	/* System.out.println("publish successfully"); */
 	}
 }

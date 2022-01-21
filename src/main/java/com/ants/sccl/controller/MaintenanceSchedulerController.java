@@ -14,20 +14,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ants.sccl.model.DepartmentInventoryTransactions;
 import com.ants.sccl.model.DepartmentMasterInventory;
+import com.ants.sccl.model.DeviceMapping;
 import com.ants.sccl.model.DevicePart;
 import com.ants.sccl.model.DeviceRunBook;
 import com.ants.sccl.model.DeviceRunBookInputModel;
+import com.ants.sccl.model.DumperDetails;
 import com.ants.sccl.model.PagingInput;
 import com.ants.sccl.model.PartTypes;
 import com.ants.sccl.model.PilferageDetectionModel;
 import com.ants.sccl.model.ReplacementModel;
+import com.ants.sccl.model.WarehouseInventoryTransactions;
 import com.ants.sccl.model.WarehouseMasterInventory;
 import com.ants.sccl.projections.ReplacementViewSPModel;
 import com.ants.sccl.projections.WarehouseMasterInventoryProjection;
+import com.ants.sccl.repository.DepartmentInventoryTransactionsRepositery;
 import com.ants.sccl.repository.DepartmentMasterInventoryRepository;
+import com.ants.sccl.repository.DeviceMappingRepository;
 import com.ants.sccl.repository.PartTypeRepository;
 import com.ants.sccl.repository.PilferageDetectionRepository;
+import com.ants.sccl.repository.WarehouseInventoryTransactionsRepositery;
 import com.ants.sccl.request.RefilDepartmentStock;
 import com.ants.sccl.response.MessageResponse;
 import com.ants.sccl.service.DepartmentMasterInventoryService;
@@ -35,6 +43,7 @@ import com.ants.sccl.service.DeviceMappingService;
 import com.ants.sccl.service.DevicePartService;
 import com.ants.sccl.service.DeviceRunBookService;
 import com.ants.sccl.service.WarehouseMasterInventoryService;
+import com.ants.sccl.serviceimpl.DeviceMappingServiceimpl;
 
 
 @RestController
@@ -57,6 +66,9 @@ public class MaintenanceSchedulerController {
 
 	@Autowired
 	DeviceMappingService deviceMappingService;
+	
+	@Autowired
+	DeviceMappingServiceimpl deviceMappingServiceimpl;
 
 	@Autowired
 	DepartmentMasterInventoryRepository departmentMasterInventoryRepository;
@@ -69,6 +81,12 @@ public class MaintenanceSchedulerController {
 
 	@Autowired
 	PartTypeRepository partTypeRepository;
+	
+	@Autowired
+	WarehouseInventoryTransactionsRepositery warehouseInventoryTransactionsRepositery;
+	
+	@Autowired
+	DepartmentInventoryTransactionsRepositery departmentInventoryTransactionsRepositery;
 
 	/* Doc
 	 * device-runbook API used for save/update Device RunBook data in Device_Runbook Table ---- */
@@ -271,5 +289,25 @@ public class MaintenanceSchedulerController {
 		return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(trueFlag,success,ptl)) ;
 
 	}
+	
+	/* one-1 Completed */
+	@PostMapping("/warehouse-inventory-transactions")
+	public ResponseEntity<MessageResponse> warehouseInventoryTransactions(@RequestBody DumperDetails dumperDetails){
 
+		List<WarehouseInventoryTransactions> ptl=warehouseInventoryTransactionsRepositery.findBetweenDates(dumperDetails.getFromDate(),dumperDetails.getToDate());
+
+		return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(trueFlag,success,ptl)) ;
+
+	}
+	
+	/* two -2  completed */
+	@PostMapping("/department-inventory-transactions")
+	public ResponseEntity<MessageResponse> departmentInventoryTransactions(@RequestBody DumperDetails dumperDetails){
+
+		List<DepartmentInventoryTransactions> ptl=departmentInventoryTransactionsRepositery.findBetweenDates(dumperDetails.getFromDate(),dumperDetails.getToDate());;
+
+		return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(trueFlag,success,ptl)) ;
+
+	}
+	
 }

@@ -31,6 +31,9 @@ public interface DeviceMappingRepository extends JpaRepository<DeviceMapping, St
 	@Query(value="select * from IOT_Device_Mapping where IOT_Device_Mapping.Category=?1",nativeQuery = true)
 	List<DeviceMapping> getAllDumpers(String deviceCategory);
 
+	@Query(value="select * from SCCL_Demo.IOT_Device_Mapping where Category in (\"Loader\", \"Driller\")",nativeQuery = true)
+	List<DeviceMapping> findLoaderDriller();
+
 	//@Query(value="select * from Dumper_Device_Mapping where Dumper_Device_Mapping.Category=?1",nativeQuery = true)
 
 	//@Procedure("SP_GetReplacementView")

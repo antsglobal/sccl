@@ -4,56 +4,56 @@ import java.util.Date;
 
 public class ReplacementModel {
 
-	private int P_part_id;
-	private int P_stock_id;
-	private String P_device_name;
-	private String P_part_name;
-	private int P_replace_quantity;
+	private int pid;
+	private int stockId;
+	private String deviceName;
+	private String partName;
+	private int replaceQuantity;
+	private Date  lastReplacementDate;
 	
-	private Date P_replacement_date;
-	public int getP_part_id() {
-		return P_part_id;
+	
+	
+	public int getPid() {
+		return pid;
 	}
-	public void setP_part_id(int p_part_id) {
-		P_part_id = p_part_id;
+	public void setPid(int pid) {
+		this.pid = pid;
 	}
-	public int getP_stock_id() {
-		return P_stock_id;
+	public int getStockId() {
+		return stockId;
 	}
-	public void setP_stock_id(int p_stock_id) {
-		P_stock_id = p_stock_id;
+	public void setStockId(int stockId) {
+		this.stockId = stockId;
 	}
-	public String getP_device_name() {
-		return P_device_name;
+	public String getDeviceName() {
+		return deviceName;
 	}
-	public void setP_device_name(String p_device_name) {
-		P_device_name = p_device_name;
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
 	}
-	public String getP_part_name() {
-		return P_part_name;
+	public String getPartName() {
+		return partName;
 	}
-	public void setP_part_name(String p_part_name) {
-		P_part_name = p_part_name;
+	public void setPartName(String partName) {
+		this.partName = partName;
 	}
-	public int getP_replace_quantity() {
-		return P_replace_quantity;
+	public int getReplaceQuantity() {
+		return replaceQuantity;
 	}
-	public void setP_replace_quantity(int p_replace_quantity) {
-		P_replace_quantity = p_replace_quantity;
+	public void setReplaceQuantity(int replaceQuantity) {
+		this.replaceQuantity = replaceQuantity;
 	}
-	public Date getP_replacement_date() {
-		return P_replacement_date;
+	public Date getLastReplacementDate() {
+		return lastReplacementDate;
 	}
-	public void setP_replacement_date(Date p_replacement_date) {
-		P_replacement_date = p_replacement_date;
+	public void setLastReplacementDate(Date lastReplacementDate) {
+		this.lastReplacementDate = lastReplacementDate;
 	}
 	@Override
 	public String toString() {
-		return "ReplacementModel [P_part_id=" + P_part_id + ", P_stock_id=" + P_stock_id + ", P_device_name="
-				+ P_device_name + ", P_part_name=" + P_part_name + ", P_replace_quantity=" + P_replace_quantity
-				+ ", P_replacement_date=" + P_replacement_date + "]";
+		return "ReplacementModel [pid=" + pid + ", stockId=" + stockId + ", deviceName=" + deviceName + ", partName="
+				+ partName + ", replaceQuantity=" + replaceQuantity + ", lastReplacementDate=" + lastReplacementDate
+				+ "]";
 	}
-
-	
 	
 }

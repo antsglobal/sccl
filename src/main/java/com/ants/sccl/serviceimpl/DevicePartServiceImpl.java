@@ -44,7 +44,7 @@ public class DevicePartServiceImpl implements DevicePartService {
 
 	@Override
 	public int saveReplacement(ReplacementModel replacementModel) {
-		 return devicePartRepository.saveReplacement(replacementModel.getP_part_id(),replacementModel.getP_stock_id(),replacementModel.getP_device_name(),replacementModel.getP_part_name(),replacementModel.getP_replace_quantity(),replacementModel.getP_replacement_date() );
+		 return devicePartRepository.saveReplacement(replacementModel.getPid(),replacementModel.getStockId(),replacementModel.getDeviceName(),replacementModel.getPartName(),replacementModel.getReplaceQuantity(),replacementModel.getLastReplacementDate() );
 	}
 	
 }

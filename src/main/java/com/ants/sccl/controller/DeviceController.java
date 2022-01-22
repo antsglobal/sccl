@@ -42,6 +42,7 @@ import com.ants.sccl.repository.UserDetailsRepository;
 import com.ants.sccl.response.IoTResponse;
 import com.ants.sccl.response.MessageResponse;
 import com.ants.sccl.response.ResponseObject;
+import com.ants.sccl.service.DeviceMappingService;
 import com.ants.sccl.serviceimpl.DeviceServiceImpl;
 import com.ants.sccl.serviceimpl.DumperServiceImpl;
 
@@ -78,6 +79,9 @@ public class DeviceController {
 
 	@Autowired
 	DeviceMappingRepository deviceMappingRepository;
+	
+	@Autowired
+	DeviceMappingService deviceMappingService;
 
 	/**	D1--Master API for store dumper Raw Data  */
 	@PostMapping("/adddevicedetails")
@@ -418,10 +422,28 @@ public class DeviceController {
 			if(deviceMappingResult==null)
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("false","No Records Found","")) ;
 			else
-				return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("true","Dumper details count fetch successfully ",deviceMappingResult)) ;
+				return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("true","success",deviceMappingResult)) ;
 		}catch(Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("false","Invalid ",e)) ;
 		}
+	}
+	
+	/*  */
+	@GetMapping("/iot-device-info")
+	public ResponseEntity<MessageResponse> getIotDevice(){
+
+		List<DeviceMapping> lddm=deviceMappingRepository.findAll();
+		
+		return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("true","success",lddm)) ;
+	}
+	
+	/* three -3 ---- pending---- */
+	@GetMapping("/loader-driller-info")
+	public ResponseEntity<MessageResponse> getLoaderDriller(){
+		System.out.println("----one in control");
+		List<DeviceMapping> lddm=deviceMappingRepository.findLoaderDriller();
+		System.out.println("----two in control");
+				return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("true","success",lddm)) ;
 	}
 
 }

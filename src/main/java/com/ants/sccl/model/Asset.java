@@ -48,7 +48,6 @@ public class Asset {
 	@Column(name="date_time")
 	private Timestamp timeStamp;
 	
-	//private DateTim timeonw;
 	
 	public Long getId() {
 		return id;

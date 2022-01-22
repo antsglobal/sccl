@@ -4,17 +4,20 @@ import java.util.Date;
 
 public class ReplacementModel {
 
-	private int pId;
+	private int pid;
 	private int stockId;
 	private String deviceName;
 	private String partName;
 	private int replaceQuantity;
 	private Date  lastReplacementDate;
-	public int getpId() {
-		return pId;
+	
+	
+	
+	public int getPid() {
+		return pid;
 	}
-	public void setpId(int pId) {
-		this.pId = pId;
+	public void setPid(int pid) {
+		this.pid = pid;
 	}
 	public int getStockId() {
 		return stockId;
@@ -48,7 +51,7 @@ public class ReplacementModel {
 	}
 	@Override
 	public String toString() {
-		return "ReplacementModel [pId=" + pId + ", stockId=" + stockId + ", deviceName=" + deviceName + ", partName="
+		return "ReplacementModel [pid=" + pid + ", stockId=" + stockId + ", deviceName=" + deviceName + ", partName="
 				+ partName + ", replaceQuantity=" + replaceQuantity + ", lastReplacementDate=" + lastReplacementDate
 				+ "]";
 	}
